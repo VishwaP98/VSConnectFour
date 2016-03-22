@@ -1,23 +1,26 @@
 /**
  * Created by Vishwa on 3/10/2016.
+ * Re-created by Sunny on 3/21/2016.
  */
 public class Box {
-    private boolean isFilled;
-    private boolean isX;
-    public Box()
+    private char piece;
+    
+    Box()
     {
-        this.isFilled = false;
+        this.piece = '-';
     }
-    public void setFilled(boolean isX)
+    public void setX()
     {
-        this.isFilled = true;
-        this.isX = isX;
+    	this.piece = 'X';
     }
-    public boolean getFilled()
+    public void setO()
     {
-        return isFilled;
+        this.piece = 'O';
     }
-    public boolean isX(){
-        return isX;
+    public char getPiece(){
+    	return (piece);
+    }
+    public boolean getFilled(){
+    	return !(piece == '-');
     }
 }
