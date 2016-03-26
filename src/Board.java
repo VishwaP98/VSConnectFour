@@ -53,7 +53,8 @@ public class Board {
 		}
 	}
 	
-	public boolean checkWin(boolean xTurn, int column){
+	public boolean checkWin(){ return true;};
+	public boolean checkWinVertical(boolean xTurn, int column){
 		column--;
 		char chip;
 		if (xTurn){
@@ -65,7 +66,7 @@ public class Board {
 		
 		char temp = chip;
 		int currentCol = column;
-		int currentRow = height[column];
+		int currentRow = height[column]-1;
 		
 		int count = 0;
 		while (temp == chip && currentRow >0){
@@ -78,7 +79,7 @@ public class Board {
 		temp = chip;
 		count = 0;
 		while (temp == chip){
-			if (currentRow != 7){
+			if (currentRow != 6){
 				currentRow++;
 				temp = board[currentCol][currentRow].getPiece();
 				count ++;
@@ -91,5 +92,116 @@ public class Board {
 		
 
 		return (count >=4);
+	}
+	
+	public boolean checkWin(boolean xTurn, int column){
+		boolean horizontal = checkWinHorizontal(xTurn, column);
+		boolean vertical = checkWinVertical (xTurn, column);
+		boolean diagonal = checkWinDiagonal (xTurn, column);
+		return (horizontal || vertical || diagonal);
+	}
+	public boolean checkWinHorizontal(boolean xTurn, int column){
+		column--;
+		char chip;
+		if (xTurn){
+			chip = 'X';
+		}
+		else{
+			chip = 'O';
+		}
+		
+		char temp = chip;
+		int currentCol = column;
+		int currentRow = height[column]-1;
+		
+		int count = 0;
+		while (temp == chip && currentCol >0){
+				currentCol--;
+				temp = board[currentCol][currentRow].getPiece();
+			}
+		temp = chip;
+		count = 0;
+		while (temp == chip){
+			if (currentCol != 6){
+				currentCol++;
+				temp = board[currentCol][currentRow].getPiece();
+				count ++;
+			}
+			else{
+				temp = '-';
+			}
+			
+		}
+
+		return (count >=4);
+	}
+	public boolean checkWinDiagonal(boolean xTurn, int column){
+		column--;
+		char chip;
+		if (xTurn){
+			chip = 'X';
+		}
+		else{
+			chip = 'O';
+		}
+		
+		char temp = chip;
+		int currentCol = column;
+		int currentRow = height[column]-1;
+		
+		int count = 0;
+		while (temp == chip && currentCol >0 && currentRow >0){
+				currentCol--;
+				currentRow--;
+				temp = board[currentCol][currentRow].getPiece();
+			}
+		temp = chip;
+		count = 0;
+		while (temp == chip){
+			if (currentCol != 6 && currentRow != 6){
+				currentCol++;
+				currentRow++;
+				temp = board[currentCol][currentRow].getPiece();
+				count ++;
+			}
+			else{
+				temp = '-';
+			}
+			
+		}
+		if (count >= 4){
+			return true;
+		}
+		
+		
+		temp = chip;
+		
+		currentCol = column;
+		currentRow = height[column]-1;
+		
+		count = 0;
+		while (temp == chip && currentCol !=6 && currentRow >0){
+				currentCol++;
+				currentRow--;
+				temp = board[currentCol][currentRow].getPiece();
+			}
+		temp = chip;
+		count = 0;
+		while (temp == chip){
+			if (currentCol >0 && currentRow != 6){
+				currentCol--;
+				currentRow++;
+				temp = board[currentCol][currentRow].getPiece();
+				count ++;
+			}
+			else{
+				temp = '-';
+			}
+		}
+		return (count >=4);
+	
+
+	
+		
 	}
 }

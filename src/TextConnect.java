@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 /**
  * Created by Vishwa on 3/10/2016.
+ * Redesigned by Sunny on 3/21/2016.
  */
 public class TextConnect {
     public static void main(String[] args)
