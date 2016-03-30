@@ -68,7 +68,7 @@ public class Board {
 		
 		char temp = chip;
 		int currentCol = column;
-		int currentRow = height[column]-1;
+		int currentRow = height[column];
 		
 		int count = 0;
 		while (temp == chip && currentRow >0){
@@ -95,9 +95,13 @@ public class Board {
 
 		return (count);
 	}
+	public void doThingy(){
+		System.out.println(checkWinHorizontal(true, 1));
+	}
 	public int aiPicker(){
 		int[] offensive = new int[7];
 		for (int col = 0; col < 7; col++){
+			
 			int horizontal = checkWinHorizontal(false, col+1);
 			int vertical = checkWinVertical(false, col+1);
 			int diagonal = checkWinDiagonal(false, col+1);
@@ -118,13 +122,13 @@ public class Board {
 			int vertical = checkWinVertical(true, col+1);
 			int diagonal = checkWinDiagonal(true, col+1);
 			if (horizontal >= vertical && horizontal >= diagonal){
-				offensive[col]= horizontal;
+				defensive[col]= horizontal;
 			}
 			else if(vertical >= horizontal && vertical >= diagonal){
-				offensive[col] = vertical;
+				defensive[col] = vertical;
 			}
 			if (diagonal >= horizontal && diagonal >= vertical){
-				offensive[col] = diagonal;
+				defensive[col] = diagonal;
 			}	
 			}
 		int max = 0;
@@ -147,7 +151,8 @@ public class Board {
 				defMaxIndex = i;
 			}
 		}
-		if (defMax == 3){
+		System.out.println(defMax);
+		if (defMax >3){
 			return defMaxIndex+1;
 		}
 		else{
@@ -157,9 +162,9 @@ public class Board {
 	}
 	
 	public boolean checkWin(boolean xTurn, int column){
-		boolean horizontal = checkWinHorizontal(xTurn, column)>=4;
-		boolean vertical = checkWinVertical (xTurn, column)>=4;
-		boolean diagonal = checkWinDiagonal (xTurn, column)>=4;
+		boolean horizontal = checkWinHorizontal(xTurn, column)>4;
+		boolean vertical = checkWinVertical (xTurn, column)>4;
+		boolean diagonal = checkWinDiagonal (xTurn, column)>4;
 		return (horizontal || vertical || diagonal);
 	}
 	private int checkWinHorizontal(boolean xTurn, int column){
@@ -174,7 +179,7 @@ public class Board {
 		
 		char temp = chip;
 		int currentCol = column;
-		int currentRow = height[column]-1;
+		int currentRow = height[column];
 		
 		int count = 0;
 		while (temp == chip && currentCol >0){
@@ -209,7 +214,7 @@ public class Board {
 		
 		char temp = chip;
 		int currentCol = column;
-		int currentRow = height[column]-1;
+		int currentRow = height[column];
 		
 		int count = 0;
 		while (temp == chip && currentCol >0 && currentRow >0){
@@ -236,7 +241,7 @@ public class Board {
 		temp = chip;
 		
 		currentCol = column;
-		currentRow = height[column]-1;
+		currentRow = height[column];
 		
 		int countOther = 0;
 		while (temp == chip && currentCol !=6 && currentRow >0){

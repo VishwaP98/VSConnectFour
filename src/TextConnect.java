@@ -13,7 +13,10 @@ public class TextConnect {
         Board thisBoard = new Board();
         int column;
         while (!won){
-        	System.out.println("Enter the column you wish to add");
+
+        	
+        	if(xTurn){
+        		System.out.println("Enter the column you wish to add");
         		column = in.nextInt();
             	while (!thisBoard.addpiece(column, xTurn)){
             		System.out.println("Column full, try another one");
@@ -21,12 +24,22 @@ public class TextConnect {
             		column = in.nextInt();
             		thisBoard.addpiece(column, xTurn);
             	}
+        	}
         	
+        	else{
+        	column =thisBoard.aiPicker();
+        	thisBoard.addpiece(column, xTurn);
+        	}
         	xTurn = !xTurn;
         	System.out.println("");
         	thisBoard.print();
         	if(thisBoard.checkWin(!xTurn, column)){
-        		System.out.println("YAYYYY.  YOU WINNN!!!!!");
+        		if(!xTurn){
+        			System.out.println("X WINS");
+        		}
+        		else{
+        			System.out.println("AI WINS");
+        		}
         		won = true;
         	}
         }
