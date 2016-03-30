@@ -14,15 +14,16 @@ public class TextConnect {
         int column;
         while (!won){
         	System.out.println("Enter the column you wish to add");
-        	column = in.nextInt();
-        	while (!thisBoard.addpiece(column, xTurn)){
-        		System.out.println("Column full, try another one");
-        		
         		column = in.nextInt();
-        		thisBoard.addpiece(column, xTurn);
-        	}
+            	while (!thisBoard.addpiece(column, xTurn)){
+            		System.out.println("Column full, try another one");
+            		
+            		column = in.nextInt();
+            		thisBoard.addpiece(column, xTurn);
+            	}
         	
         	xTurn = !xTurn;
+        	System.out.println("");
         	thisBoard.print();
         	if(thisBoard.checkWin(!xTurn, column)){
         		System.out.println("YAYYYY.  YOU WINNN!!!!!");

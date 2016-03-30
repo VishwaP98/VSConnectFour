@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * 
  * Created by Sunny on 3/21/2016
@@ -54,7 +56,7 @@ public class Board {
 	}
 	
 	public boolean checkWin(){ return true;};
-	public boolean checkWinVertical(boolean xTurn, int column){
+	public int checkWinVertical(boolean xTurn, int column){
 		column--;
 		char chip;
 		if (xTurn){
@@ -91,16 +93,76 @@ public class Board {
 		}
 		
 
-		return (count >=4);
+		return (count);
+	}
+	public int aiPicker(){
+		int[] offensive = new int[7];
+		for (int col = 0; col < 7; col++){
+			int horizontal = checkWinHorizontal(false, col+1);
+			int vertical = checkWinVertical(false, col+1);
+			int diagonal = checkWinDiagonal(false, col+1);
+			if (horizontal >= vertical && horizontal >= diagonal){
+				offensive[col]= horizontal;
+			}
+			else if(vertical >= horizontal && vertical >= diagonal){
+				offensive[col] = vertical;
+			}
+			if (diagonal >= horizontal && diagonal >= vertical){
+				offensive[col] = diagonal;
+			}	
+		}
+		
+		int[] defensive = new int[7];
+		for (int col=0; col<7; col++){
+			int horizontal = checkWinHorizontal(true, col+1);
+			int vertical = checkWinVertical(true, col+1);
+			int diagonal = checkWinDiagonal(true, col+1);
+			if (horizontal >= vertical && horizontal >= diagonal){
+				offensive[col]= horizontal;
+			}
+			else if(vertical >= horizontal && vertical >= diagonal){
+				offensive[col] = vertical;
+			}
+			if (diagonal >= horizontal && diagonal >= vertical){
+				offensive[col] = diagonal;
+			}	
+			}
+		int max = 0;
+		int maxIndex = 0;
+		for (int i=0; i<7; i++){
+			
+
+			if (offensive[i] > max){
+				max = offensive[i];
+				maxIndex = i;
+			}
+
+		}
+		int defMax = 0;
+		int defMaxIndex = 0;
+		for (int i=0; i<7; i++){
+			
+			if (defensive[i] > defMax){
+				defMax = defensive[i];
+				defMaxIndex = i;
+			}
+		}
+		if (defMax == 3){
+			return defMaxIndex+1;
+		}
+		else{
+			return maxIndex+1;
+		}
+		
 	}
 	
 	public boolean checkWin(boolean xTurn, int column){
-		boolean horizontal = checkWinHorizontal(xTurn, column);
-		boolean vertical = checkWinVertical (xTurn, column);
-		boolean diagonal = checkWinDiagonal (xTurn, column);
+		boolean horizontal = checkWinHorizontal(xTurn, column)>=4;
+		boolean vertical = checkWinVertical (xTurn, column)>=4;
+		boolean diagonal = checkWinDiagonal (xTurn, column)>=4;
 		return (horizontal || vertical || diagonal);
 	}
-	public boolean checkWinHorizontal(boolean xTurn, int column){
+	private int checkWinHorizontal(boolean xTurn, int column){
 		column--;
 		char chip;
 		if (xTurn){
@@ -133,9 +195,9 @@ public class Board {
 			
 		}
 
-		return (count >=4);
+		return (count);
 	}
-	public boolean checkWinDiagonal(boolean xTurn, int column){
+	private int checkWinDiagonal(boolean xTurn, int column){
 		column--;
 		char chip;
 		if (xTurn){
@@ -169,9 +231,6 @@ public class Board {
 			}
 			
 		}
-		if (count >= 4){
-			return true;
-		}
 		
 		
 		temp = chip;
@@ -179,7 +238,7 @@ public class Board {
 		currentCol = column;
 		currentRow = height[column]-1;
 		
-		count = 0;
+		int countOther = 0;
 		while (temp == chip && currentCol !=6 && currentRow >0){
 				currentCol++;
 				currentRow--;
@@ -198,9 +257,12 @@ public class Board {
 				temp = '-';
 			}
 		}
-		return (count >=4);
-	
-
+		if (count >= countOther){
+			return count;
+		}
+		else{
+			return countOther;
+		}
 	
 		
 	}
