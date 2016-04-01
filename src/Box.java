@@ -4,23 +4,20 @@
  */
 public class Box {
     private char piece;
-    
+
     Box()
     {
         this.piece = '-';
     }
     public void setX()
     {
-    	this.piece = 'X';
+        this.piece = 'X';
     }
-    public void setO()
-    {
-        this.piece = 'O';
-    }
+    public void setO() {this.piece = 'O';}
     public char getPiece(){
-    	return (piece);
+        return (piece);
     }
     public boolean getFilled(){
-    	return !(piece == '-');
+        return !(piece == '-');
     }
 }

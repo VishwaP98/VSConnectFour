@@ -11,11 +11,14 @@ import java.io.IOException;
  * Created by Vishwa on 3/10/2016.         
  */
 public class ConnectPanel extends JPanel {
-    private JButton start = new JButton("Play Game");
+    private JButton singPlayer = new JButton("Single Player");
+    private JButton twoPlayer = new JButton("Two Player");
     BufferedImage logoImage;
     private JLabel logo;
     private JFrame frame1;
     private JFrame originalframe;
+    Board board = new Board();
+    private JButton instructions = new JButton("Instructions");
 
     public ConnectPanel(JFrame frame) {
         setBackground(Color.cyan);
@@ -25,19 +28,29 @@ public class ConnectPanel extends JPanel {
             logoImage = ImageIO.read(new File("connect4_logo.png"));
             logo = new JLabel(new ImageIcon(logoImage));
             add(logo);
-            start.setPreferredSize(new Dimension(300, 100));
-            add(start);
+            singPlayer.setPreferredSize(new Dimension(400, 100));
+            add(singPlayer);
+            twoPlayer.setPreferredSize(new Dimension(400, 100));
+            twoPlayer.addActionListener(new ClassListener());
+            add(twoPlayer);
+            instructions.setPreferredSize(new Dimension(400, 100));
+            instructions.addActionListener(new ClassListener());
+            add(instructions);
             logo.setVisible(true);
-            start.setVisible(true);
+            singPlayer.setVisible(true);
         } catch (IOException e) {
             System.out.print(" Error " + e.getMessage());
         }
-        start.addActionListener(new ClassListener());
+        singPlayer.addActionListener(new ClassListener());
     }
 
     private class ClassListener implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
-            if (actionEvent.getSource() == start) {
+            if (actionEvent.getSource() == twoPlayer || actionEvent.getSource() == singPlayer) {
+                if(actionEvent.getSource() == singPlayer)
+                {
+                    board.setAIOn();
+                }
                 originalframe.setVisible(false);
                 originalframe.removeAll();
                 JFrame frame1 = new JFrame("Connect Four");
@@ -46,6 +59,15 @@ public class ConnectPanel extends JPanel {
                 frame1.pack();
                 frame1.setVisible(true);
                 frame1.setResizable(false);
+            }
+            else if(actionEvent.getSource() == instructions)
+            {
+                instructions.setVisible(false);
+                JFrame frame = new JFrame("Instructions");
+                frame.getContentPane().add(new InstructionsPanel());
+                frame.pack();
+                frame.setVisible(true);
+                frame.setResizable(false);
             }
         }
     }

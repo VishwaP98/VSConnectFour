@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -5,33 +6,47 @@ import java.util.Scanner;
  * Redesigned by Sunny on 3/21/2016.
  */
 public class TextConnect {
-    public static void main(String[] args)
-    {
-        Scanner in = new Scanner(System.in);
-        boolean xTurn = true;
-        boolean won = false;
-        Board thisBoard = new Board();
-        int column;
-        while (!won){
-        	System.out.println("Enter the column you wish to add");
-        	column = in.nextInt();
-        	while (!thisBoard.addpiece(column, xTurn)){
-        		System.out.println("Column full, try another one");
-        		
-        		column = in.nextInt();
-        		thisBoard.addpiece(column, xTurn);
-        	}
-        	
-        	xTurn = !xTurn;
-        	thisBoard.print();
-        	if(thisBoard.checkWin(!xTurn, column)){
-        		System.out.println("YAYYYY.  YOU WINNN!!!!!");
-        		won = true;
-        	}
-        }
-        
-        in.close();
-        
+	private Board thisBoard = new Board();
+	private boolean xTurn = true;
+	private boolean won = false;
+	private boolean computerTurn = false;
+	public void addChip(int column) {
+		column--;
+		computerTurn = false;
+		if (thisBoard.getHeight(column) < 0) {
+			JOptionPane.showMessageDialog(null, "Column is already full");
+		} else {
+			thisBoard.addpiece(column, xTurn);
+			String player = "";
+			if (thisBoard.checkWin(!xTurn, column)) {
+				if (!xTurn) {
+					player = "Blue";
+				} else {
+					player = "Red";
+				}
+				won = true;
+				JOptionPane.showMessageDialog(null, player + " Wins !");
+				GamePanel.gameOver();
+			}
+			if(!thisBoard.getAIOn())
+			{
+				xTurn = !xTurn;
+			}
+			computerTurn = true;
+			if(thisBoard.getAIOn())
+			{
+				System.out.print("Hi I am at AI");
+				thisBoard.addAIpiece(!xTurn);
+			}
+		}
+	}
+		public boolean getWon() {
+			return won;
+		}
+		public boolean getComputerTurn()
+		{
+			return computerTurn;
+		}
 
-    }
+
 }

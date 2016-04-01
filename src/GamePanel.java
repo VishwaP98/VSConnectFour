@@ -17,7 +17,8 @@ public class GamePanel extends JPanel {
     static BufferedImage redCircle;
     static BufferedImage blueCircle;
     BufferedImage emptyBox;
-    private Board board;
+    private Board board = new Board();
+
     private static JLabel[][] labels = new JLabel[numberBoxes][numberBoxes];
     //http://usaopoly.com/brand/connect-4  Got the Connect Four picture from here
     private static JButton[] buttons;
@@ -64,7 +65,6 @@ public class GamePanel extends JPanel {
                 labels[i][j] = new JLabel("");
                 Color color = new Color(187,187,187);
                 labels[i][j].setBackground(color);
-                board = new Board();
                 if (board.getBox(i,j).getFilled()){
                     labels[i][j].setBackground(Color.lightGray);
                     labels[i][j].setIcon(new ImageIcon(redCircle));
@@ -85,7 +85,10 @@ public class GamePanel extends JPanel {
         {
             JButton button = (JButton)event.getSource();
             String text = button.getText();
-            connect.addChip(Integer.parseInt(text));
+            if(!connect.getWon() || !connect.getComputerTurn())
+            {
+                connect.addChip(Integer.parseInt(text));
+            }
         }
     }
     public static void putChip(int column, int row, boolean xTurn)
@@ -96,11 +99,11 @@ public class GamePanel extends JPanel {
         else
         {
             labels[row][column].setIcon(new ImageIcon(blueCircle));
-
         }
     }
     public static void gameOver()
     {
+        System.out.print("Hi I am at GameOver");
         for(int i=0;i<numberBoxes;i++)
         {
             buttons[i].setEnabled(false);
