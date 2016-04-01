@@ -9,7 +9,7 @@ public class GameController {
 	private Board thisBoard = new Board();
 	private boolean xTurn = true;
 	private boolean won = false;
-	private boolean aiMode = false;
+	private static boolean aiMode = false;
 	public void addChip(int column) {
 		column--;
 		if (thisBoard.getHeight(column) < 0) {

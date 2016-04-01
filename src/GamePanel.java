@@ -13,8 +13,8 @@ import java.io.File;
 
 public class GamePanel extends JPanel {
     private static final int numberBoxes = 7;
-    static BufferedImage redCircle;
-    static BufferedImage blueCircle;
+    private static BufferedImage redCircle;
+    private static BufferedImage blueCircle;
     BufferedImage emptyBox;
     private Board board = new Board();
 
