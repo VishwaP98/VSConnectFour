@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 /**
  * Created by Vishwa on 3/10/2016.         
  */
@@ -18,6 +17,7 @@ public class ConnectPanel extends JPanel {
     private JFrame frame1;
     private JFrame originalframe;
     Board board = new Board();
+    GameController controller = new GameController();
     private JButton instructions = new JButton("Instructions");
 
     public ConnectPanel(JFrame frame) {
@@ -49,7 +49,7 @@ public class ConnectPanel extends JPanel {
             if (actionEvent.getSource() == twoPlayer || actionEvent.getSource() == singPlayer) {
                 if(actionEvent.getSource() == singPlayer)
                 {
-                    board.setAIOn();
+                    controller.setaiMode();
                 }
                 originalframe.setVisible(false);
                 originalframe.removeAll();

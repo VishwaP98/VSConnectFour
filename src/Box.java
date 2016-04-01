@@ -14,6 +14,9 @@ public class Box {
         this.piece = 'X';
     }
     public void setO() {this.piece = 'O';}
+    public void setBlank() {
+        this.piece = '-';
+    }
     public char getPiece(){
         return (piece);
     }

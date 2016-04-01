@@ -1,5 +1,4 @@
 
-
 /**
  * Created by Vishwa on 3/25/2016.
  */
@@ -22,7 +21,7 @@ public class GamePanel extends JPanel {
     private static JLabel[][] labels = new JLabel[numberBoxes][numberBoxes];
     //http://usaopoly.com/brand/connect-4  Got the Connect Four picture from here
     private static JButton[] buttons;
-    private TextConnect connect;
+    private GameController connect;
     private final int FONT_SIZE = 45;
     public GamePanel()
     {
@@ -76,7 +75,7 @@ public class GamePanel extends JPanel {
                 add(labels[i][j]);
             }
         }
-        connect = new TextConnect();
+        connect = new GameController();
 
     }
     private class ButtonListener implements ActionListener
@@ -85,7 +84,7 @@ public class GamePanel extends JPanel {
         {
             JButton button = (JButton)event.getSource();
             String text = button.getText();
-            if(!connect.getWon() || !connect.getComputerTurn())
+            if(!connect.getWon() || !connect.getaiMode())
             {
                 connect.addChip(Integer.parseInt(text));
             }
@@ -109,5 +108,4 @@ public class GamePanel extends JPanel {
             buttons[i].setEnabled(false);
         }
     }
-
 }
