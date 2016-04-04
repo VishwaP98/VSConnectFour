@@ -51,14 +51,14 @@ public class GameController {
 			}
 			else if (aiMode){
 				thisBoard.addpiece(column, xTurn);
-				if (thisBoard.checkWin(!xTurn,  column)){
+				if (thisBoard.checkWin(xTurn,  column)){
 					JOptionPane.showMessageDialog(null, "PLAYER WINS !");
 					won = true;
 				}
 				if(won != true){
 					column = thisBoard.aiPicker();
 					thisBoard.addpiece(column, false);
-					if (thisBoard.checkWin(true, column)){
+					if (thisBoard.checkWin(false, column)){
 						JOptionPane.showMessageDialog(null, "AI WINS!");
 					}
 				}
