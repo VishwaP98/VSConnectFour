@@ -325,6 +325,5 @@ public class Board {
 
 		return count;
 
-
 	}
 }

@@ -11,18 +11,26 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * Defines the panel for gameplay user interface including a grid
+ * with buttons, labels and images of chips of different players
+ */
 public class GamePanel extends JPanel {
     private static final int numberBoxes = 7;
     private static BufferedImage redCircle;
     private static BufferedImage blueCircle;
-    BufferedImage emptyBox;
+    private BufferedImage emptyBox;
     private Board board = new Board();
-
     private static JLabel[][] labels = new JLabel[numberBoxes][numberBoxes];
     //http://usaopoly.com/brand/connect-4  Got the Connect Four picture from here
     private static JButton[] buttons;
     private GameController connect;
     private final int FONT_SIZE = 45;
+
+    /**
+     * Initializes the panel by setting the background and layout of the panel
+     * and adding GUI components like JButtons and JLabels
+     */
     public GamePanel()
     {
         setBackground(Color.gray);
@@ -44,10 +52,13 @@ public class GamePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
         }
         buttons = new JButton[numberBoxes];
+
+        // Initializes all the buttons
         for(int i=0; i<numberBoxes;i++)
         {
             buttons[i] = new JButton();
         }
+        // Defines buttons for game including their colour and adds to panel
         for(int i=0;i<numberBoxes;i++)
         {
             int colNum = i+1;
@@ -58,6 +69,8 @@ public class GamePanel extends JPanel {
             button.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
             add(button);
         }
+
+        // Defines labels for game including their appearance and adds to panel
         for(int i=0;i<numberBoxes;i++)
         {
             for(int j=0; j<numberBoxes;j++) {
@@ -78,18 +91,44 @@ public class GamePanel extends JPanel {
         connect = new GameController();
 
     }
+
+    /**
+     * Defines responses to the buttons created in panel constructor
+     * and differentiates between buttons using event.getSource() and
+     * getting the text on buttons
+     */
     private class ButtonListener implements ActionListener
     {
+        /**
+         * Handles response of buttons upon click
+         * @param event
+         *         ActionEvent Object to track
+         */
         public void actionPerformed(ActionEvent event)
         {
             JButton button = (JButton)event.getSource();
             String text = button.getText();
-            if(!connect.getWon() || !connect.getaiMode())
+            if(!connect.getWon())
             {
+                // Adds chip to the number of column that the button represents
                 connect.addChip(Integer.parseInt(text));
             }
+
         }
     }
+
+    /**
+     * Adds chip to the game grid by changing the icon of label at the location
+     * of move
+     * @param column
+     *          integer representing the columnn in which to put the chip in
+     * @param row
+     *          integer representing the row in which to put the chip in
+     * @param xTurn
+     *          boolean indicating which player's turn it is
+     *          true for red player and false for blue player
+     *          If game is against computer, blue is AI and red is player
+     */
     public static void putChip(int column, int row, boolean xTurn)
     {
         if(xTurn) {
@@ -100,12 +139,5 @@ public class GamePanel extends JPanel {
             labels[row][column].setIcon(new ImageIcon(blueCircle));
         }
     }
-    public static void gameOver()
-    {
-        System.out.print("Hi I am at GameOver");
-        for(int i=0;i<numberBoxes;i++)
-        {
-            buttons[i].setEnabled(false);
-        }
-    }
+
 }
