@@ -9,6 +9,10 @@ import javax.swing.*;
  */
 
 /**
+ * @author Vishwa Patel
+ * @since April 1st 2016
+ * @version 1.1.90
+ *
  * Defines the panel for displaying instructions to the user
  * with an image of instructions set on a JLabel
  */

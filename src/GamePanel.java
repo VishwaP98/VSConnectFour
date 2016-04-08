@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
+ * @author Vishwa Patel
+ * @since April 1st 2016
+ * @version 1.1.90
+ *
  * Defines the panel for gameplay user interface including a grid
  * with buttons, labels and images of chips of different players
  */
