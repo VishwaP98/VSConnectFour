@@ -10,7 +10,7 @@ import java.util.Collections;
  * Creates 49 Box object instances
  * 
  * Created by Sunny on 03/21/2016
- *
+
  */
 public class Board {
 	private Box[][] board = new Box[7][7];

@@ -1,4 +1,3 @@
-
 /**
  * Created by Vishwa on 3/10/2016.
  * Redesigned by Sunny on 3/21/2016.
@@ -34,7 +33,7 @@ public class GameController {
 			if (!aiMode){
 				thisBoard.addpiece(column, xTurn);
 				String player = "";
-				if (thisBoard.checkWin(!xTurn, column)) {
+				if (thisBoard.checkWin(xTurn, column)) {
 					if (!xTurn) {
 						player = "Blue";
 					} else {
